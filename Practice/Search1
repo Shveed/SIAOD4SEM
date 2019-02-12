@@ -1,0 +1,91 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+////////////////////////////////////////////////////////////////////////////
+// Задача: Из списка финишировавших спортсменов определить, дошёл ли до
+//          финиша спортсмен с определённым номером. Поиск спортсмена
+//          реализовать с помощью следующих видов поиска: поиск перебором,
+//          поиск с преградой, инарный поиск.
+//
+////////////////////////////////////////////////////////////////////////////
+
+
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n, x;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter length of array");
+        n = sc.nextInt();
+        List<Integer> list = new ArrayList();
+        for(int i = 0; i < n; i++){
+            System.out.println("Enter element " + i + " of array ");
+            list.add(sc.nextInt());
+        }
+        System.out.println("Enter your element:" );
+        x = sc.nextInt();
+        System.out.println("Brute Force Search Result: " );
+        Main.Brute_Force_Search(list, n, x);
+        System.out.println("Barricade Search Result: " );
+        Barricade_Search(list, n, x);
+        System.out.println("Binary Search Result: " );
+        Binary_Search(list, x);
+    }
+
+    public static void Brute_Force_Search(List<Integer> myList, int l, int x){
+        int k = 0;
+        while(k != l && x != myList.get(k)){
+            k++;
+        }
+        if (k == l) {
+            System.out.println("No x in Array ");
+        } else {
+            System.out.println("Array consists of x");
+        }
+    }
+
+    public static void Barricade_Search(List<Integer> myList, int l, int x){
+        int k = 0;
+        myList.add(x);
+        while(k != x){
+            k++;
+        }
+        if (k == l){
+            System.out.println("No x in Array");
+        } else{
+            System.out.println("Array consists of x");
+        }
+    }
+
+    public static void Binary_Search(List<Integer> myList, int x){
+        myList = Bubble_Sort_Array(myList);
+        int l = 0;
+        int r = myList.size() - 1;
+        boolean isFound = false;
+        while((l < r) && (!isFound)){
+            int m = (r - l) / 2;
+            if(myList.get(m) == x){ isFound = true; }
+            else if(myList.get(m) < x) { r = m; }
+            else { l = m; }
+        }
+        if (isFound){ System.out.println("Array consists of x"); }
+        else{ System.out.println("No x in Array"); }
+    }
+
+    public static List<Integer> Bubble_Sort_Array(List<Integer> myList){
+        for(int i = 0; i < myList.size() - 1; i++){
+            for(int j = i + 1; j < myList.size(); j++){
+                if(myList.get(i) >  myList.get(j)){
+                    int t = myList.get(i);
+                    myList.set(i, myList.get(j));
+                    myList.set(j, t);
+                }
+            }
+        }
+        return myList;
+    }
+}
