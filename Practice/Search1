@@ -28,11 +28,11 @@ public class Main {
         }
         System.out.println("Enter your element:" );
         x = sc.nextInt();
-        System.out.println("Brute Force Search Result: " );
+        System.out.println("1. Brute Force Search Result: " );
         Main.Brute_Force_Search(list, n, x);
-        System.out.println("Barricade Search Result: " );
+        System.out.println("2. Barricade Search Result: " );
         Barricade_Search(list, n, x);
-        System.out.println("Binary Search Result: " );
+        System.out.println("4. Binary Search Result: " );
         Binary_Search(list, x);
     }
 
@@ -44,20 +44,20 @@ public class Main {
         if (k == l) {
             System.out.println("No x in Array ");
         } else {
-            System.out.println("Array consists of x");
+            System.out.println("Array consists of x. Index: " + k);
         }
     }
 
     public static void Barricade_Search(List<Integer> myList, int l, int x){
         int k = 0;
         myList.add(x);
-        while(k != x){
+        while(myList.get(k) != x){
             k++;
         }
         if (k == l){
             System.out.println("No x in Array");
         } else{
-            System.out.println("Array consists of x");
+            System.out.println("Array consists of x. Index: " + k);
         }
     }
 
@@ -65,14 +65,19 @@ public class Main {
         myList = Bubble_Sort_Array(myList);
         int l = 0;
         int r = myList.size() - 1;
+        int k;
         boolean isFound = false;
         while((l < r) && (!isFound)){
             int m = (r - l) / 2;
-            if(myList.get(m) == x){ isFound = true; }
+            if(myList.get(m) == x){
+                isFound = true;
+                k = m;
+            }
             else if(myList.get(m) < x) { r = m; }
             else { l = m; }
+
         }
-        if (isFound){ System.out.println("Array consists of x"); }
+        if (isFound){ System.out.println("Array consists of x. Index: " + k); }
         else{ System.out.println("No x in Array"); }
     }
 
