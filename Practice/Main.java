@@ -19,6 +19,7 @@ public class Main {
         System.out.println("Enter length of array");
         n = Typetester.SetInt();
         List<Integer> list = new ArrayList();
+
         for(int i = 0; i < n; i++){
             System.out.println("Enter element " + i + " of array ");
             list.add(Typetester.SetInt());
@@ -67,27 +68,29 @@ public class Main {
         } else{
             System.out.println("Array consists of x. Index: " + k);
         }
+        myList.remove(myList.size() - 1);
         return compared;
     }
 
     public static int Binary_Search(List<Integer> myList, int x){
         myList = Bubble_Sort_Array(myList);
+        System.out.println(myList);
         int l = 0;
         int r = myList.size() - 1;
-        int k = 0;
+        int k = -1;
         int compared = 0;
         boolean isFound = false;
-        while((l < r) && (!isFound)){
-            int m = (r - l) / 2;
+        while((l <= r) && (!isFound)){
+            int m = Math.round((r + l) / 2);
             if(myList.get(m) == x){
                 isFound = true;
                 k = m;
             }
-            else if(myList.get(m) < x) { r = m; }
-            else { l = m; }
+            if(myList.get(m) < x) { l = m + 1; }
+            else { r = m - 1; }
             compared++;
         }
-        if (isFound && k != 0){ System.out.println("Array consists of x. Index: " + (k - 1)); }
+        if (isFound && (k != -1)){ System.out.println("Array consists of x. Index: " + (k)); }
         else{ System.out.println("No x in Array"); }
         return compared;
     }
@@ -109,19 +112,19 @@ public class Main {
         myList = Bubble_Sort_Array(myList);
         int l = 0;
         int r = myList.size() - 1;
-        int k = 0;
+        int k = -1;
         boolean isFound = false;
-        while((l < r) && (!isFound)){
-            int m = (int)Math.round((r - l) * (3 - sqrt(5)) / 2);
+        while((l <= r) && (!isFound)){
+            int m = (int)Math.floor((r + l) / 1.61);
             if(myList.get(m) == x){
                 isFound = true;
                 k = m;
             }
-            else if(myList.get(m) < x) { r = m; }
-            else { l = m; }
+            if(myList.get(m) < x) { l = m + 1; }
+            else { r = m - 1; }
 
         }
-        if (isFound && k != 0){ System.out.println("Array consists of x. Index: " + k); }
+        if (isFound && k != -1){ System.out.println("Array consists of x. Index: " + k); }
         else{ System.out.println("No x in Array"); }
     }
 }
